@@ -1,0 +1,7 @@
+[user]
+  name = oliv
+  email = oliv@oliv.xxx
+[core]
+  editor = vim
+[diff]
+  external = ~/bin/gitdiff.py

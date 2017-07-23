@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Make sure to create a symlink from:
+#   /usr/autodesk/maya<VERSION> --> /usr/autodesk/maya
+#   (Unix)
+# or:
+#   /Applications/Autodesk/maya<VERSION> --> /Applications/Autodesk/maya
+#   (MacOS)
+export MAYA_DISABLE_CIP=1
+if [ "$(uname)" == "Darwin" ]; then
+  export MAYA_LOCATION=/Applications/Autodesk/maya/Maya.app/Contents
+  export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MAYA_LOCATION}/MacOS
+  export DYLD_FRAMEWORK_PATH=${DYLD_FRAMEWORK_PATH}:${MAYA_LOCATION}/Frameworks
+  #export PYTHONPATH=${PYTHONPATH}:${MAYA_LOCATION}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages
+else
+  export MAYA_LOCATION=/usr/autodesk/maya
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MAYA_LOCATION}/lib
+  #export PYTHONPATH=${PYTHONPATH}:${MAYA_LOCATION}/lib/python2.7/site-packages
+fi
+export PATH=${PATH}:${MAYA_LOCATION}/bin

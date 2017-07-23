@@ -1,0 +1,19 @@
+[global_config]
+  focus = mouse
+[keybindings]
+[profiles]
+  [[default]]
+    background_image = None
+    icon_bell = False
+    scrollback_infinite = True
+    show_titlebar = False
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1200, 800
+[plugins]

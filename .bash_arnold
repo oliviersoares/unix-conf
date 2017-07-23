@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Make sure to create a symlink from:
+#   /opt/solidangle/mtoa/<YEAR> --> /opt/solidangle/mtoa/current
+#   (Unix)
+# or:
+#   /Applications/solidangle/mtoa/<YEAR> --> /Applications/solidangle/mtoa/current
+#   (MacOS)
+if [ "$(uname)" == "Darwin" ]; then
+  export ARNOLD_ROOT=/Applications/solidangle/mtoa/current
+else
+  export ARNOLD_ROOT=/opt/solidangle/mtoa/current
+fi
+export PYTHONPATH=${PYTHONPATH}:${ARNOLD_ROOT}/scripts:${ARNOLD_ROOT}/extensions
+export solidangle_LICENSE=127.0.0.1

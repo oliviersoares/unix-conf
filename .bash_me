@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+# Safe aliases
+alias cp='cp -i'
+alias rm='rm -i'
+alias mv='mv -i'
+
+# Color
+if [ "$(uname)" == "Darwin" ]; then
+  export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+  export CLICOLOR=1
+  export LSCOLORS=ExFxBxDxCxegedabagacad
+  alias ls='ls -GFh'
+else
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+fi
+if cdiff_loc="$(type -p "colordiff")" && [ ! -z "${cdiff_loc}" ]; then
+  alias cdiff=colordiff
+  alias diff=cdiff
+fi
+
+# ls
+alias l='ls -lh'
+alias la='ls -ah'
+alias ll='ls -lah'
+alias lt='ls -lahrt'
+
+# Make subdirs
+alias mkdir='mkdir -p'
+
+# Text editors
+alias vim='vim -p'
+alias vi=vim
+alias v=vim
+alias n=nedit
+alias j=jedit
+alias e=vim
+export EDITOR=vim
+export VISUAL=vim
+
+# cd
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# System update
+if [ "$(uname)" == "Linux" ]; then
+  alias sysupdate='sudo apt-get -y update; sudo apt-get -y upgrade; sudo apt-get -y dist-upgrade; sudo apt-get -y autoremove; sudo apt-get -y autoclean; sudo apt-get -y clean'
+  alias sysinstall='sudo apt-get -y --no-install-recommends install'
+  alias sysremove='sudo apt-get -y remove --purge'
+  alias syssearch='apt-cache search'
+elif [ "$(uname)" == "Darwin" ]; then
+  alias sysupdate='brew update; brew upgrade'
+  alias sysinstall='brew install'
+  alias sysremove='brew uninstall'
+  alias syssearch='brew search'
+fi
+
+# Custom bins
+if [ -d "${HOME}/bin" ]; then
+  export PATH=${PATH}:${HOME}/bin
+fi
+
+# Custom libs
+if [ -d "${HOME}/lib" ]; then
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/lib
+fi
+
+# Python startup script
+export PYTHONSTARTUP=${HOME}/.pythonrc
+
+# Pip update
+alias pipupdate='pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 pip install --upgrade'
+alias pipupdatesudo='pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H pip install --upgrade'
+
+# Avoid pyc files
+export PYTHONDONTWRITEBYTECODE=1
+
+# CUDA: if installed, make sure to create a symlink
+# from /usr/local/cuda-version to /usr/local/cuda
+if [ -d "/usr/local/cuda" ]; then
+  export CUDA_HOME=/usr/local/cuda
+  if [ "$(uname)" == "Darwin" ]; then
+    export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${CUDA_HOME}/lib64:${CUDA_HOME}/extras/CUPTI/lib64
+  else
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${CUDA_HOME}/lib64:${CUDA_HOME}/extras/CUPTI/lib64
+  fi
+  export PATH=${PATH}:${CUDA_HOME}/bin
+fi
+
+# Remove "._*" files from tarballs
+if [ "$(uname)" == "Darwin" ]; then
+  export COPYFILE_DISABLE=1
+fi
+
+# Count number of files (and dirs) in cwd
+alias numfiles='ls -1 | wc -l'
+alias numfilesh='ls -1a -I. -I.. | wc -l'
+
+# Encrypt/decrypt
+alias encrypt='gpg --no-verbose -q --yes --compress-algo 1 --cipher-algo AES256 -c'
+alias decrypt='gpg --no-verbose -q --yes'
+
+# TensorFlow environment (docker and virtualenv)
+alias dtf='docker run -it -v ${HOME}/.pythonrc:/root/.pythonrc -v ${HOME}/.keras:/root/.keras -v ${HOME}/tmp:/root/tmp -v ${HOME}/dev:/root/dev tf /bin/bash'
+alias vtf='. ${HOME}/.venv/tf/bin/activate'
