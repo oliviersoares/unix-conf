@@ -37,6 +37,9 @@ if [ "$(uname)" == "Linux" ]; then
   # Tools
   sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld terminator ncftp  imagemagick optipng pngquant tmux dos2unix
 
+  # Internet
+  sudo apt-get -y --no-install-recommends install firefox chromium-browser
+
   # Multimedia
   sudo apt-get -y --no-install-recommends install mplayer vlc
 
