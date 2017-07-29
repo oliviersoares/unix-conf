@@ -98,6 +98,13 @@ fi
 alias numfiles='ls -1 | wc -l'
 alias numfilesh='ls -1a -I. -I.. | wc -l'
 
+# Image
+if [ "$(uname)" == "Darwin" ]; then
+  alias djv='/Applications/djv-*-OSX-64.app/Contents/MacOS/djv-*-OSX-64'
+else
+  alias djv='djv_view'
+fi
+
 # Encrypt/decrypt
 alias encrypt='gpg --no-verbose -q --yes --compress-algo 1 --cipher-algo AES256 -c'
 alias decrypt='gpg --no-verbose -q --yes'
