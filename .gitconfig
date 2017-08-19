@@ -4,4 +4,4 @@
 [core]
   editor = vim
 [diff]
-  external = ~/bin/gitdiff.py
+  external = python ${HOME}/bin/gitdiff.py
