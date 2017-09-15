@@ -70,9 +70,16 @@ fi
 # Python startup script
 export PYTHONSTARTUP=${HOME}/.pythonrc
 
+# Find pip
+if hash pip 2>/dev/null; then
+  PIP=pip
+elif hash pip2 2>/dev/null; then
+  PIP=pip2
+fi
+
 # Pip update
-alias pipupdate='pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 pip install --upgrade'
-alias pipupdatesudo='pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H pip install --upgrade'
+alias pipupdate='${PIP} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 ${PIP} install --upgrade'
+alias pipupdatesudo='${PIP} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H ${PIP} install --upgrade'
 
 # Avoid pyc files
 export PYTHONDONTWRITEBYTECODE=1

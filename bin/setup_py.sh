@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Find pip
 if hash pip 2>/dev/null; then
   PIP=pip
 elif hash pip2 2>/dev/null; then
@@ -27,6 +28,7 @@ ${PIP} install --upgrade boto3
 ${PIP} install --upgrade h5py
 ${PIP} install --upgrade protobuf
 ${PIP} install --upgrade sklearn
+${PIP} install --upgrade git+https://github.com/aleju/imgaug
 if [ -d "/usr/local/cuda" ]; then
   echo -e "\n\n\n--- Installing TensorFlow GPU ---\n\n\n"
   ${PIP} install --upgrade tensorflow-gpu

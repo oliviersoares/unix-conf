@@ -118,11 +118,21 @@ if [ "$(uname)" == "Linux" ]; then
     nvidia-smi
   fi
 
+  # Find pip
+  if hash pip 2>/dev/null; then
+    PIP=pip
+  elif hash pip2 2>/dev/null; then
+    PIP=pip2
+  else
+    echo "Can't find pip!" 1>&2
+    exit 1
+  fi
+
   # Python update
-  sudo -H pip install --upgrade pip
-  sudo -H pip install --upgrade virtualenv
-  sudo -H pip install --upgrade setuptools
-  pip freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H pip install --upgrade
+  sudo -H ${PIP} install --upgrade pip
+  sudo -H ${PIP} install --upgrade virtualenv
+  sudo -H ${PIP} install --upgrade setuptools
+  ${PIP} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H ${PIP} install --upgrade
 
   # Clean
   echo -e "\n\n\n--- Cleaning system ---\n\n\n"
@@ -185,11 +195,21 @@ elif [ "$(uname)" == "Darwin" ]; then
   # Docker
   brew cask install docker
 
+  # Find pip
+  if hash pip 2>/dev/null; then
+    PIP=pip
+  elif hash pip2 2>/dev/null; then
+    PIP=pip2
+  else
+    echo "Can't find pip!" 1>&2
+    exit 1
+  fi
+
   # Python update
-  pip2 install --upgrade pip
-  pip2 install --upgrade virtualenv
-  pip2 install --upgrade setuptools
-  pip2 freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 pip2 install --upgrade
+  ${PIP} install --upgrade pip
+  ${PIP} install --upgrade virtualenv
+  ${PIP} install --upgrade setuptools
+  ${PIP} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 ${PIP} install --upgrade
 fi
 
 echo -e "\n\n\nDone with setup.sh\n\n\n"
