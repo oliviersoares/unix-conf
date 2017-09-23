@@ -32,7 +32,7 @@ if [ "$(uname)" == "Linux" ]; then
   echo -e "\n\n\n--- Installing packages ---\n\n\n"
 
   # Text editors
-  sudo apt-get -y --no-install-recommends install vim nedit jedit
+  sudo apt-get -y --no-install-recommends install vim nedit geany
 
   # Tools
   sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld terminator ncftp  imagemagick optipng pngquant tmux dos2unix
@@ -169,7 +169,7 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Editors
   brew install vim nedit
-  brew cask install java jedit
+  brew cask install geany
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp exiftool
