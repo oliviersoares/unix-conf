@@ -147,7 +147,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   defaults write com.apple.CrashReporter DialogType none
 
   # Change repeat rate
-  defaults write -g InitialKeyRepeat -int 5
+  defaults write -g InitialKeyRepeat -int 8
   defaults write -g KeyRepeat -int 1
 
   # Disable analytics
