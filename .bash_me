@@ -5,6 +5,10 @@ alias cp='cp -i'
 alias rm='rm -i'
 alias mv='mv -i'
 
+# Unlimited history
+HISTSIZE=
+HISTFILESIZE=
+
 # Color
 if [ "$(uname)" == "Darwin" ]; then
   export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
@@ -100,6 +104,9 @@ fi
 if [ "$(uname)" == "Darwin" ]; then
   export COPYFILE_DISABLE=1
 fi
+
+# Screenshot (max quality)
+alias import='import -quality 100'
 
 # Count number of files (and dirs) in cwd
 alias numfiles='ls -1 | wc -l'

@@ -147,7 +147,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   defaults write com.apple.CrashReporter DialogType none
 
   # Change repeat rate
-  defaults write -g InitialKeyRepeat -int 10
+  defaults write -g InitialKeyRepeat -int 5
   defaults write -g KeyRepeat -int 1
 
   # Disable analytics
@@ -165,7 +165,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install xquartz
 
   # Internet
-  brew cask install firefox google-chrome thunderbird torbrowser tunnelblick
+  brew cask install firefox torbrowser
 
   # Editors
   brew install vim nedit
