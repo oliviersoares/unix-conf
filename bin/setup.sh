@@ -35,7 +35,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install vim nedit geany
 
   # Tools
-  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld terminator ncftp  imagemagick optipng pngquant tmux dos2unix
+  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld terminator ncftp imagemagick optipng pngquant libimage-exiftool-perl tmux dos2unix
 
   # Internet
   sudo apt-get -y --no-install-recommends install firefox chromium-browser
@@ -47,7 +47,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
 
   # Dev libraries
-  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libopenexr-dev openexr libz-dev libopencv-dev libeigen3-dev libgoogle-glog-dev libceres-dev libimage-exiftool-perl
+  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev
 
   # Python
   sudo apt-get -y --no-install-recommends install python python-dev python-pip
@@ -94,7 +94,7 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=384
+    NVIDIA_VERSION=387
     CUDA_PKG=cuda_8.0.61_375.26_linux.run
     CUDNN_PKG=cudnn-8.0-linux-x64-v5.1.tgz
     NVIDIA_DOCKER_PKG=nvidia-docker_1.0.1-1_amd64.deb
@@ -147,7 +147,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   defaults write com.apple.CrashReporter DialogType none
 
   # Change repeat rate
-  defaults write -g InitialKeyRepeat -int 8
+  defaults write -g InitialKeyRepeat -int 10
   defaults write -g KeyRepeat -int 1
 
   # Disable analytics
@@ -172,16 +172,13 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install geany
 
   # Tools
-  brew install coreutils findutils curl wget htop nmap tmux ncftp exiftool
+  brew install coreutils findutils curl wget htop nmap tmux ncftp
   brew cask install iterm2 meld vlc spotify gimp djv meshlab
   brew install imagemagick --with-x11
-  brew install optipng pngquant ghostscript
+  brew install optipng pngquant ghostscript exiftool
 
   # Coding tools
   brew install cmake git mercurial valgrind doxygen
-
-  # Dev libraries
-  brew install homebrew/science/opencv eigen openexr zlib glog ceres-solver
 
   # Python
   brew install python
