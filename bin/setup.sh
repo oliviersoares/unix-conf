@@ -61,31 +61,6 @@ if [ "$(uname)" == "Linux" ]; then
   # Gimp
   sudo apt-get -y --no-install-recommends install gimp
 
-  # DJView
-  TMPDIR=$(mktemp -d)
-  DJV_PKG=djv-1.1.0-Linux-64.deb
-  wget -P ${TMPDIR} https://downloads.sourceforge.net/project/djv/djv-stable/1.1.0/${DJV_PKG}
-  sudo dpkg -i ${TMPDIR}/${DJV_PKG}
-  rm -rf ${TMPDIR}
-
-  # Docker
-  # See instructions here: https://docs.docker.com/engine/installation/linux/ubuntu
-  echo -e "\n\n\n--- Installing docker ---\n\n\n"
-  sudo apt-get -y remove --purge docker docker-engine
-  sudo rm -rf /var/lib/docker
-  sudo apt-get install -y --no-install-recommends apt-transport-https ca-certificates software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo apt-get install software-properties-common lsb-release
-  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  sudo apt-get -y update
-  sudo apt-get install -y --no-install-recommends docker-ce
-  if [ ! -z $USER ]; then
-    sudo groupadd docker
-    sudo usermod -aG docker $USER
-  fi
-  sudo service docker start
-  sudo systemctl enable docker
-
   # Check if we have a NVIDIA graphics card
   # The command below returns the number of NVIDIA graphics card found
   sudo apt-get -y --no-install-recommends install pciutils
@@ -97,7 +72,6 @@ if [ "$(uname)" == "Linux" ]; then
     NVIDIA_VERSION=387
     CUDA_PKG=cuda_8.0.61_375.26_linux.run
     CUDNN_PKG=cudnn-8.0-linux-x64-v5.1.tgz
-    NVIDIA_DOCKER_PKG=nvidia-docker_1.0.1-1_amd64.deb
     TMPDIR=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
     sudo apt-get -y update
@@ -108,8 +82,6 @@ if [ "$(uname)" == "Linux" ]; then
     cat ${TMPDIR}/${CUDNN_PKG}* > ${TMPDIR}/${CUDNN_PKG}
     sudo sh ${TMPDIR}/${CUDA_PKG} --silent --toolkit
     sudo tar xvzf ${TMPDIR}/${CUDNN_PKG} -C /usr/local
-    wget -P ${TMPDIR} https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/${NVIDIA_DOCKER_PKG}
-    sudo dpkg -i ${TMPDIR}/${NVIDIA_DOCKER_PKG}
     rm -rf ${TMPDIR}
     pushd /usr/lib/x86_64-linux-gnu/
     sudo rm -f libGL.so
@@ -173,7 +145,7 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp
-  brew cask install iterm2 meld vlc spotify gimp djv meshlab
+  brew cask install iterm2 meld vlc spotify gimp
   brew install imagemagick --with-x11
   brew install optipng pngquant ghostscript exiftool
 
@@ -188,9 +160,6 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Latex
   brew cask install basictex
-
-  # Docker
-  brew cask install docker
 
   # Find pip
   if hash pip 2>/dev/null; then
