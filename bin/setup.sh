@@ -47,7 +47,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
 
   # Dev libraries
-  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev
+  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev
 
   # Python
   sudo apt-get -y --no-install-recommends install python python-dev python-pip
@@ -69,9 +69,9 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=387
+    NVIDIA_VERSION=384
     CUDA_PKG=cuda_8.0.61_375.26_linux.run
-    CUDNN_PKG=cudnn-8.0-linux-x64-v5.1.tgz
+    CUDNN_PKG=cudnn-8.0-linux-x64-v6.0.tgz
     TMPDIR=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
     sudo apt-get -y update
@@ -82,6 +82,7 @@ if [ "$(uname)" == "Linux" ]; then
     cat ${TMPDIR}/${CUDNN_PKG}* > ${TMPDIR}/${CUDNN_PKG}
     sudo sh ${TMPDIR}/${CUDA_PKG} --silent --toolkit
     sudo tar xvzf ${TMPDIR}/${CUDNN_PKG} -C /usr/local
+    find /usr/local/cuda/ -exec sudo chown -h root:root {} \;
     rm -rf ${TMPDIR}
     pushd /usr/lib/x86_64-linux-gnu/
     sudo rm -f libGL.so
@@ -151,6 +152,9 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Coding tools
   brew install cmake git mercurial valgrind doxygen
+
+  # Dev libraries
+  brew install jpeg libpng libtiff
 
   # Python
   brew install python
