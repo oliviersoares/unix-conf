@@ -35,7 +35,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install vim nedit geany
 
   # Tools
-  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld terminator ncftp imagemagick optipng pngquant libimage-exiftool-perl tmux dos2unix
+  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick optipng pngquant libimage-exiftool-perl tmux dos2unix
 
   # Internet
   sudo apt-get -y --no-install-recommends install firefox chromium-browser
