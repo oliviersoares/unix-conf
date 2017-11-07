@@ -41,7 +41,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install firefox chromium-browser
 
   # Multimedia
-  sudo apt-get -y --no-install-recommends install mplayer vlc
+  sudo apt-get -y --no-install-recommends install mplayer vlc ffmpeg
 
   # Coding tools
   sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
@@ -69,13 +69,16 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=384
+    NVIDIA_VERSION=387
     CUDA_PKG=cuda_8.0.61_375.26_linux.run
     CUDNN_PKG=cudnn-8.0-linux-x64-v6.0.tgz
     TMPDIR=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
     sudo apt-get -y update
     sudo apt-get -y --no-install-recommends install nvidia-${NVIDIA_VERSION} nvidia-settings libcuda1-${NVIDIA_VERSION} nvidia-opencl-icd-${NVIDIA_VERSION}
+    if [ -d "/usr/local/cuda" ]; then
+      sudo /usr/local/cuda/bin/uninstall_cuda_*.pl
+    fi
     sudo rm -rf /usr/local/cuda*
     git clone https://github.com/oliviersoares/nvidia ${TMPDIR}
     cat ${TMPDIR}/${CUDA_PKG}*  > ${TMPDIR}/${CUDA_PKG}
@@ -146,7 +149,7 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp
-  brew cask install iterm2 meld vlc spotify gimp
+  brew cask install iterm2 meld vlc ffmpeg spotify gimp
   brew install imagemagick --with-x11
   brew install optipng pngquant ghostscript exiftool
 
