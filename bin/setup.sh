@@ -148,8 +148,8 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install geany
 
   # Tools
-  brew install coreutils findutils curl wget htop nmap tmux ncftp
-  brew cask install iterm2 meld vlc ffmpeg spotify gimp
+  brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg
+  brew cask install iterm2 meld vlc spotify gimp
   brew install imagemagick --with-x11
   brew install optipng pngquant ghostscript exiftool
 
