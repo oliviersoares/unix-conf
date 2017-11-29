@@ -47,7 +47,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
 
   # Dev libraries
-  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev
+  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev
 
   # Python
   sudo apt-get -y --no-install-recommends install python python-dev python-pip
@@ -157,7 +157,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew install cmake git mercurial valgrind doxygen
 
   # Dev libraries
-  brew install jpeg libpng libtiff
+  brew install jpeg libpng libtiff openexr
 
   # Python
   brew install python
