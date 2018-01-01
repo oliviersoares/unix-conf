@@ -98,10 +98,10 @@ if [ "$(uname)" == "Linux" ]; then
   fi
 
   # Find pip (Python 2)
-  if hash pip2 2>/dev/null; then
-    PIP2=pip2
-  elif hash pip 2>/dev/null; then
-    PIP2=pip
+  if hash /usr/bin/pip 2>/dev/null; then
+    PIP2=/usr/bin/pip
+  elif hash /usr/bin/pip2 2>/dev/null; then
+    PIP2=/usr/bin/pip2
   else
     echo "Can't find pip for Python 2!" 1>&2
     exit 1
@@ -114,8 +114,8 @@ if [ "$(uname)" == "Linux" ]; then
   ${PIP2} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H ${PIP2} install --upgrade
 
   # Find pip (Python 3)
-  if hash pip3 2>/dev/null; then
-    PIP3=pip3
+  if hash /usr/bin/pip3 2>/dev/null; then
+    PIP3=/usr/bin/pip3
   else
     echo "Can't find pip for Python 3!" 1>&2
     exit 1
