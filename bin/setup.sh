@@ -47,7 +47,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
 
   # Dev libraries
-  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev
+  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev
 
   # Python 2
   sudo apt-get -y --no-install-recommends install python python-dev python-pip
