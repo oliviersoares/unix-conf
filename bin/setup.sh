@@ -40,6 +40,9 @@ if [ "$(uname)" == "Linux" ]; then
   # Internet
   sudo apt-get -y --no-install-recommends install firefox chromium-browser
 
+  # OpenSSH
+  sudo apt-get -y --no-install-recommends install openssh-client openssh-server
+
   # Multimedia
   sudo apt-get -y --no-install-recommends install mplayer vlc ffmpeg
 
