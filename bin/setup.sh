@@ -38,7 +38,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick optipng pngquant libimage-exiftool-perl tmux dos2unix
 
   # Internet
-  sudo apt-get -y --no-install-recommends install firefox chromium-browser
+  sudo apt-get -y --no-install-recommends install firefox chromium-browser torbrowser-launcher
 
   # OpenSSH
   sudo apt-get -y --no-install-recommends install openssh-client openssh-server
@@ -189,10 +189,10 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install basictex
 
   # Find pip (Python 2)
-  if hash pip2 2>/dev/null; then
-    PIP2=pip2
-  elif hash pip 2>/dev/null; then
+  if hash pip 2>/dev/null; then
     PIP2=pip
+  elif hash pip2 2>/dev/null; then
+    PIP2=pip2
   else
     echo "Can't find pip for Python 2!" 1>&2
     exit 1

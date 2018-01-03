@@ -125,4 +125,6 @@ alias decrypt='gpg --no-verbose -q --yes'
 
 # TensorFlow environment (docker and virtualenv)
 alias dtf='docker run -it -v ${HOME}/.pythonrc:/root/.pythonrc -v ${HOME}/.keras:/root/.keras -v ${HOME}/tmp:/root/tmp -v ${HOME}/dev:/root/dev tf /bin/bash'
-alias vtf='. ${HOME}/.venv/tf/bin/activate'
+alias vtf2='. ${HOME}/.venv/python2/tf/bin/activate'
+alias vtf3='. ${HOME}/.venv/python3/tf/bin/activate'
+alias vtf='vtf2'
