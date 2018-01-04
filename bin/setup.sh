@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Check we're not root
+if [ `whoami` == "root" ]; then
+  echo "You can't run this script as root!"
+  exit 1
+fi
+
 echo -e "\n\n\n--- Starting setup.sh ---\n\n\n"
 
 if [ "$(uname)" == "Linux" ]; then

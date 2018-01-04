@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Check we're not root
+if [ `whoami` == "root" ]; then
+  echo "You can't run this script as root!"
+  exit 1
+fi
+
 # Find python
 if hash /usr/bin/python 2>/dev/null; then
   PYTHON=/usr/bin/python
