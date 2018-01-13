@@ -59,10 +59,10 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev
 
   # Python 2
-  sudo apt-get -y --no-install-recommends install python python-dev python-pip
+  sudo apt-get -y --no-install-recommends install python python-dev python-pip python-virtualenv python-setuptools
 
   # Python 3
-  sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip
+  sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools
 
   # AWS
   sudo apt-get -y --no-install-recommends install awscli
@@ -105,36 +105,6 @@ if [ "$(uname)" == "Linux" ]; then
     popd
     nvidia-smi
   fi
-
-  # Find pip (Python 2)
-  if hash /usr/bin/pip 2>/dev/null; then
-    PIP2=/usr/bin/pip
-  elif hash /usr/bin/pip2 2>/dev/null; then
-    PIP2=/usr/bin/pip2
-  else
-    echo "Can't find pip for Python 2!" 1>&2
-    exit 1
-  fi
-
-  # Python 2 update (via pip)
-  sudo -H ${PIP2} install --upgrade pip
-  sudo -H ${PIP2} install --upgrade virtualenv
-  sudo -H ${PIP2} install --upgrade setuptools
-  ${PIP2} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H ${PIP2} install --upgrade
-
-  # Find pip (Python 3)
-  if hash /usr/bin/pip3 2>/dev/null; then
-    PIP3=/usr/bin/pip3
-  else
-    echo "Can't find pip for Python 3!" 1>&2
-    exit 1
-  fi
-
-  # Python 3 update (via pip)
-  sudo -H ${PIP3} install --upgrade pip
-  sudo -H ${PIP3} install --upgrade virtualenv
-  sudo -H ${PIP3} install --upgrade setuptools
-  ${PIP3} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 sudo -H ${PIP3} install --upgrade
 
   # Clean
   echo -e "\n\n\n--- Cleaning system ---\n\n\n"
