@@ -81,9 +81,9 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=387
-    CUDA_PKG=cuda_8.0.61_375.26_linux.run
-    CUDNN_PKG=cudnn-8.0-linux-x64-v6.0.tgz
+    NVIDIA_VERSION=390
+    CUDA_PKG=cuda_9.0.176_384.81_linux.run
+    CUDNN_PKG=cudnn-9.0-linux-x64-v7.tgz
     TMPDIR=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
     sudo apt-get -y update
