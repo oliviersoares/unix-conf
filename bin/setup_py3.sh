@@ -28,9 +28,7 @@ virtualenv -p ${PYTHON} ~/.venv/python3/tf
 . ~/.venv/python3/tf/bin/activate
 
 # Find pip
-if [ -f /usr/bin/pip3 ]; then
-  PIP=/usr/bin/pip3
-elif hash pip3 2>/dev/null; then
+if hash pip3 2>/dev/null; then
   PIP=pip3
 else
   echo -e "Could not find pip command"
@@ -61,6 +59,9 @@ else
 fi
 echo -e "\n\n\n--- Installing Keras ---\n\n\n"
 ${PIP} install --upgrade keras
+${PIP} install git+https://www.github.com/keras-team/keras-contrib.git
+echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
+${PIP} install --upgrade coremltools
 
 # Upgrade packages
 ${PIP} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 ${PIP} install --upgrade

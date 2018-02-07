@@ -32,11 +32,7 @@ virtualenv -p ${PYTHON} ~/.venv/python2/tf
 . ~/.venv/python2/tf/bin/activate
 
 # Find pip
-if [ -f /usr/bin/pip2 ]; then
-  PIP=/usr/bin/pip2
-elif [ -f /usr/bin/pip ]; then
-  PIP=/usr/bin/pip
-elif hash pip2 2>/dev/null; then
+if hash pip2 2>/dev/null; then
   PIP=pip2
 elif hash pip 2>/dev/null; then
   PIP=pip
@@ -69,6 +65,9 @@ else
 fi
 echo -e "\n\n\n--- Installing Keras ---\n\n\n"
 ${PIP} install --upgrade keras
+${PIP} install git+https://www.github.com/keras-team/keras-contrib.git
+echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
+${PIP} install --upgrade coremltools
 
 # Upgrade packages
 ${PIP} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 ${PIP} install --upgrade
