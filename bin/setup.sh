@@ -59,7 +59,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev
 
   # Python 2
-  sudo apt-get -y --no-install-recommends install python python-dev python-pip python-virtualenv python-setuptools
+  sudo apt-get -y --no-install-recommends install python python-dev virtualenv python-pip python-virtualenv python-setuptools
 
   # Python 3
   sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools
