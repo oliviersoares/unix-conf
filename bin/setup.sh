@@ -165,34 +165,38 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install basictex
 
   # Find pip (Python 2)
-  if hash pip 2>/dev/null; then
-    PIP2=pip
+  if [ -f /usr/bin/pip2 ]; then
+    PIP2=/usr/bin/pip2
+  elif [ -f /usr/bin/pip ]; then
+    PIP2=/usr/bin/pip
   elif hash pip2 2>/dev/null; then
     PIP2=pip2
+  elif hash pip 2>/dev/null; then
+    PIP2=pip
   else
-    echo "Can't find pip for Python 2!" 1>&2
+    echo -e "Could not find pip command"
+    echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python-pip"
+    echo -e "Install it on macOS via HomeBrew with command: brew install python"
     exit 1
   fi
 
-  # Python 2 update (via pip)
-  ${PIP2} install --upgrade pip
+  # Virtualenv (via pip)
   ${PIP2} install --upgrade virtualenv
-  ${PIP2} install --upgrade setuptools
-  ${PIP2} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 ${PIP2} install --upgrade
 
-  # Find pip (Python 3)
-  if hash pip3 2>/dev/null; then
+  # Find pip
+  if [ -f /usr/bin/pip3 ]; then
+    PIP3=/usr/bin/pip3
+  elif hash pip3 2>/dev/null; then
     PIP3=pip3
   else
-    echo "Can't find pip for Python 3!" 1>&2
+    echo -e "Could not find pip command"
+    echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3-pip"
+    echo -e "Install it on macOS via HomeBrew with command: brew install python3"
     exit 1
   fi
 
-  # Python 3 update (via pip)
-  ${PIP3} install --upgrade pip
+  # Virtualenv (via pip)
   ${PIP3} install --upgrade virtualenv
-  ${PIP3} install --upgrade setuptools
-  ${PIP3} freeze --local | grep -v "^\-e" | cut -d = -f 1 | xargs -n1 ${PIP3} install --upgrade
 fi
 
 echo -e "\n\n\nDone with setup.sh\n\n\n"

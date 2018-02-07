@@ -7,12 +7,18 @@ if [ `whoami` == "root" ]; then
 fi
 
 # Find python
-if hash /usr/bin/python 2>/dev/null; then
-  PYTHON=/usr/bin/python
-elif hash /usr/bin/python2 2>/dev/null; then
+if [ -f /usr/bin/python2 ]; then
   PYTHON=/usr/bin/python2
+elif [ -f /usr/bin/python ]; then
+  PYTHON=/usr/bin/python
+elif hash python2 2>/dev/null; then
+  PYTHON=python2
+elif hash python 2>/dev/null; then
+  PYTHON=python
 else
   echo -e "Could not find python command"
+  echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python"
+  echo -e "Install it on macOS via HomeBrew with command: brew install python"
   exit 1
 fi
 
@@ -26,12 +32,18 @@ virtualenv -p ${PYTHON} ~/.venv/python2/tf
 . ~/.venv/python2/tf/bin/activate
 
 # Find pip
-if hash pip 2>/dev/null; then
-  PIP=pip
-elif hash /usr/bin/pip2 2>/dev/null; then
+if [ -f /usr/bin/pip2 ]; then
+  PIP=/usr/bin/pip2
+elif [ -f /usr/bin/pip ]; then
+  PIP=/usr/bin/pip
+elif hash pip2 2>/dev/null; then
   PIP=pip2
+elif hash pip 2>/dev/null; then
+  PIP=pip
 else
-  echo "Can't find pip!" 1>&2
+  echo -e "Could not find pip command"
+  echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python-pip"
+  echo -e "Install it on macOS via HomeBrew with command: brew install python"
   exit 1
 fi
 

@@ -7,10 +7,14 @@ if [ `whoami` == "root" ]; then
 fi
 
 # Find python
-if hash /usr/bin/python3 2>/dev/null; then
+if [ -f /usr/bin/python3 ]; then
   PYTHON=/usr/bin/python3
+elif hash python3 2>/dev/null; then
+  PYTHON=python3
 else
   echo -e "Could not find python command"
+  echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3"
+  echo -e "Install it on macOS via HomeBrew with command: brew install python3"
   exit 1
 fi
 
@@ -24,10 +28,14 @@ virtualenv -p ${PYTHON} ~/.venv/python3/tf
 . ~/.venv/python3/tf/bin/activate
 
 # Find pip
-if hash pip3 2>/dev/null; then
+if [ -f /usr/bin/pip3 ]; then
+  PIP=/usr/bin/pip3
+elif hash pip3 2>/dev/null; then
   PIP=pip3
 else
-  echo "Can't find pip!" 1>&2
+  echo -e "Could not find pip command"
+  echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3-pip"
+  echo -e "Install it on macOS via HomeBrew with command: brew install python3"
   exit 1
 fi
 
