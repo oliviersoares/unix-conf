@@ -89,7 +89,7 @@ if [ "$(uname)" == "Linux" ]; then
     sudo apt-get -y update
     sudo apt-get -y --no-install-recommends install nvidia-${NVIDIA_VERSION} nvidia-settings libcuda1-${NVIDIA_VERSION} nvidia-opencl-icd-${NVIDIA_VERSION}
     if [ -d "/usr/local/cuda" ]; then
-      sudo /usr/local/cuda/bin/uninstall_cuda_*.pl
+      sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
     fi
     sudo rm -rf /usr/local/cuda*
     git clone https://github.com/oliviersoares/nvidia ${TMPDIR}
