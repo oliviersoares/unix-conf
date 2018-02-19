@@ -82,7 +82,8 @@ if [ "$(uname)" == "Linux" ]; then
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
     NVIDIA_VERSION=390
-    CUDA_PKG=cuda_9.0.176_384.81_linux.run
+    CUDA_PKG_1=cuda_9.0.176_384.81_linux.run
+    CUDA_PKG_2=cuda_9.0.176.1_linux.run
     CUDNN_PKG=cudnn-9.0-linux-x64-v7.tgz
     TMPDIR=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
@@ -93,9 +94,11 @@ if [ "$(uname)" == "Linux" ]; then
     fi
     sudo rm -rf /usr/local/cuda*
     git clone https://github.com/oliviersoares/nvidia ${TMPDIR}
-    cat ${TMPDIR}/${CUDA_PKG}*  > ${TMPDIR}/${CUDA_PKG}
-    cat ${TMPDIR}/${CUDNN_PKG}* > ${TMPDIR}/${CUDNN_PKG}
-    sudo sh ${TMPDIR}/${CUDA_PKG} --silent --toolkit
+    cat ${TMPDIR}/${CUDA_PKG_1}* > ${TMPDIR}/${CUDA_PKG_1}
+    cat ${TMPDIR}/${CUDA_PKG_2}* > ${TMPDIR}/${CUDA_PKG_2}
+    cat ${TMPDIR}/${CUDNN_PKG}*  > ${TMPDIR}/${CUDNN_PKG}
+    sudo sh ${TMPDIR}/${CUDA_PKG_1} --silent --toolkit
+    sudo sh ${TMPDIR}/${CUDA_PKG_2} --silent --accept-eula
     sudo tar xvzf ${TMPDIR}/${CUDNN_PKG} -C /usr/local
     find /usr/local/cuda/ -exec sudo chown -h root:root {} \;
     rm -rf ${TMPDIR}
