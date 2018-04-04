@@ -12,7 +12,7 @@ catch
 endtry
 
 " Use the mouse
-set mouse=a
+set mouse=r
 
 " Add line numbers
 set number
@@ -38,7 +38,6 @@ set shiftwidth=2
 " Automatic indentation
 set autoindent
 set smartindent
-set cindent
 set wrap
 
 " Set 4 lines to the cursor
