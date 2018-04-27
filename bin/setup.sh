@@ -81,7 +81,7 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=390
+    NVIDIA_VERSION=396
     CUDA_PKG_1=cuda_9.0.176_384.81_linux.run
     CUDA_PKG_2=cuda_9.0.176.1_linux.run
     CUDNN_PKG=cudnn-9.0-linux-x64-v7.tgz
