@@ -45,3 +45,8 @@ for filename in *; do
 
   count=$(($count+1))
 done
+
+# Fix .heic file extension
+for file in *.eic; do
+  mv "$file" "$(basename "$file" .eic).heic"
+done

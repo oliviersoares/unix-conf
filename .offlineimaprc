@@ -1,0 +1,66 @@
+# OfflineIMAP config
+
+[general]
+metadata = ~/.offlineimap
+accounts = GMail, Oliv, Web
+ignore-readonly = no
+
+[Account GMail]
+localrepository = GMailLocal
+remoterepository = GMailRemote
+
+[Repository GMailLocal]
+type = Maildir
+localfolders = ~/.offlineimap/GMail
+subscribedonly = no
+restoreatime = no
+
+[Repository GMailRemote]
+type = Gmail
+remotehost = imap.gmail.com
+remoteuser = GMAILLOGIN
+remotepass = GMAILPASSWORD
+ssl = yes
+#sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+sslcacertfile = /usr/local/etc/openssl/cert.pem
+realdelete = no
+
+[Account Oliv]
+localrepository = OlivLocal
+remoterepository = OlivRemote
+
+[Repository OlivLocal]
+type = Maildir
+localfolders = ~/.offlineimap/Oliv
+subscribedonly = no
+restoreatime = no
+
+[Repository OlivRemote]
+type = IMAP
+remotehost = mail.gandi.net
+remoteuser = OLIVLOGIN
+remotepass = OLIVPASSWORD
+ssl = yes
+#sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+sslcacertfile = /usr/local/etc/openssl/cert.pem
+realdelete = no
+
+[Account Web]
+localrepository = WebLocal
+remoterepository = WebRemote
+
+[Repository WebLocal]
+type = Maildir
+localfolders = ~/.offlineimap/Web
+subscribedonly = no
+restoreatime = no
+
+[Repository WebRemote]
+type = IMAP
+remotehost = mail.gandi.net
+remoteuser = WEBLOGIN
+remotepass = WEBPASSWORD
+ssl = yes
+#sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+sslcacertfile = /usr/local/etc/openssl/cert.pem
+realdelete = no
