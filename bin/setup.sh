@@ -136,7 +136,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install xquartz
 
   # Internet
-  brew cask install firefox torbrowser filezilla
+  brew cask install firefox google-chrome torbrowser filezilla
 
   # Editors
   brew install vim nedit
