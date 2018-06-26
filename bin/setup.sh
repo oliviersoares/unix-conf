@@ -44,7 +44,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
 
   # Internet
-  sudo apt-get -y --no-install-recommends install firefox chromium-browser torbrowser-launcher filezilla
+  sudo apt-get -y --no-install-recommends install firefox chromium-browser torbrowser-launcher
 
   # OpenSSH
   sudo apt-get -y --no-install-recommends install openssh-client openssh-server
@@ -136,7 +136,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install xquartz
 
   # Internet
-  brew cask install firefox google-chrome torbrowser filezilla
+  brew cask install firefox google-chrome torbrowser
 
   # Editors
   brew install vim nedit
