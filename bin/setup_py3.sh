@@ -19,7 +19,9 @@ virtualenv --system-site-packages -p python3 ~/.venv/python3/tf
 
 # Install packages
 pip install --upgrade pip
+pip install --upgrade wheel
 pip install --upgrade setuptools
+pip install --upgrade Cython
 pip install --upgrade pylint
 pip install --upgrade six
 pip install --upgrade numpy
