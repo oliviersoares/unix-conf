@@ -53,7 +53,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install mplayer vlc ffmpeg
 
   # Coding tools
-  sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
+  sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config cython valgrind doxygen
 
   # Dev libraries
   sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev libhdf5-dev
@@ -149,7 +149,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew install optipng pngquant ghostscript exiftool
 
   # Coding tools
-  brew install cmake git mercurial valgrind doxygen
+  brew install cmake git mercurial cython valgrind doxygen
 
   # Dev libraries
   brew install jpeg libpng libtiff openexr hdf5
@@ -164,11 +164,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install basictex
 
   # Find pip (Python 2)
-  if [ -f /usr/bin/pip2 ]; then
-    PIP2=/usr/bin/pip2
-  elif [ -f /usr/bin/pip ]; then
-    PIP2=/usr/bin/pip
-  elif hash pip2 2>/dev/null; then
+  if hash pip2 2>/dev/null; then
     PIP2=pip2
   elif hash pip 2>/dev/null; then
     PIP2=pip
@@ -183,9 +179,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   ${PIP2} install --upgrade virtualenv
 
   # Find pip
-  if [ -f /usr/bin/pip3 ]; then
-    PIP3=/usr/bin/pip3
-  elif hash pip3 2>/dev/null; then
+  if hash pip3 2>/dev/null; then
     PIP3=pip3
   else
     echo -e "Could not find pip command"
