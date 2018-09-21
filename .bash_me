@@ -55,7 +55,7 @@ if [ "$(uname)" == "Linux" ]; then
   alias sysremove='sudo apt-get -y remove --purge'
   alias syssearch='apt-cache search'
 elif [ "$(uname)" == "Darwin" ]; then
-  alias sysupdate='brew update; brew upgrade; brew cleanup -s; rm -rf $(brew --cache); brew doctor; brew missing'
+  alias sysupdate='brew update; brew upgrade; brew cleanup -s; brew prune; rm -rf $(brew --cache); brew doctor; brew missing'
   alias sysinstall='brew install'
   alias sysremove='brew uninstall'
   alias syssearch='brew search'
