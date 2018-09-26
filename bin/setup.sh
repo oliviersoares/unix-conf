@@ -59,10 +59,10 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev libhdf5-dev
 
   # Python 2
-  sudo apt-get -y --no-install-recommends install python python-dev virtualenv python-pip python-virtualenv python-setuptools
+  sudo apt-get -y --no-install-recommends install python python-dev virtualenv python-pip python-virtualenv python-setuptools ipython ipython-notebook
 
   # Python 3
-  sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools
+  sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools ipython3 ipython3-notebook
 
   # AWS
   sudo apt-get -y --no-install-recommends install awscli
@@ -155,7 +155,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew install jpeg libpng libtiff openexr hdf5
 
   # Python
-  brew install python
+  brew install python ipython
 
   # AWS
   brew install awscli
@@ -184,7 +184,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   else
     echo -e "Could not find pip command"
     echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3-pip"
-    echo -e "Install it on macOS via HomeBrew with command: brew install python3"
+    echo -e "Install it on macOS via HomeBrew with command: brew install python"
     exit 1
   fi
 
