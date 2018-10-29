@@ -31,8 +31,8 @@ if [ "$(uname)" == "Linux" ]; then
   # Set locales
   echo -e "\n\n\n--- Setting locales ---\n\n\n"
   sudo apt-get -y --no-install-recommends install locales
-  locale-gen en_US.utf8
-  update-locale LANG=en_US.utf8
+  sudo locale-gen en_US.utf8
+  sudo update-locale LANG=en_US.utf8
 
   # Installing packages
   echo -e "\n\n\n--- Installing packages ---\n\n\n"
