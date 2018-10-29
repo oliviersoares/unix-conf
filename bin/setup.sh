@@ -41,7 +41,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install vim nedit geany
 
   # Tools
-  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
+  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick gmic optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
 
   # Internet
   sudo apt-get -y --no-install-recommends install firefox chromium-browser torbrowser-launcher
@@ -146,7 +146,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg gnupg offlineimap
   brew cask install iterm2 meld vlc gimp
   brew install imagemagick --with-x11
-  brew install optipng pngquant ghostscript exiftool
+  brew install gmic optipng pngquant ghostscript exiftool
 
   # Coding tools
   brew install cmake git mercurial valgrind doxygen
