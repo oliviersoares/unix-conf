@@ -84,7 +84,7 @@ if [ "$(uname)" == "Linux" ]; then
     NVIDIA_VERSION=396
     CUDA_PKG_1=cuda_9.0.176_384.81_linux.run
     CUDA_PKG_2=cuda_9.0.176.1_linux.run
-    CUDNN_PKG=cudnn-9.0-linux-x64-v7.tgz
+    CUDNN_PKG=cudnn-9.0-linux-x64-v7.3.1.20.tgz
     TMPDIR=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
     sudo apt-get -y update
