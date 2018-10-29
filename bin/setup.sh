@@ -56,13 +56,13 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install build-essential clang git mercurial cmake pkg-config valgrind doxygen
 
   # Dev libraries
-  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng12-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev libhdf5-dev
+  sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev libhdf5-dev
 
   # Python 2
-  sudo apt-get -y --no-install-recommends install python python-dev virtualenv python-pip python-virtualenv python-setuptools ipython ipython-notebook
+  sudo apt-get -y --no-install-recommends install python python-dev virtualenv python-pip python-virtualenv python-setuptools ipython python-notebook
 
   # Python 3
-  sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools ipython3 ipython3-notebook
+  sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools ipython3 python3-notebook
 
   # AWS
   sudo apt-get -y --no-install-recommends install awscli
@@ -81,13 +81,11 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=390
+    NVIDIA_VERSION=384
     CUDA_PKG_1=cuda_9.0.176_384.81_linux.run
     CUDA_PKG_2=cuda_9.0.176.1_linux.run
     CUDNN_PKG=cudnn-9.0-linux-x64-v7.3.1.20.tgz
     TMPDIR=$(mktemp -d)
-    sudo add-apt-repository -y ppa:graphics-drivers/ppa
-    sudo apt-get -y update
     sudo apt-get -y --no-install-recommends install nvidia-${NVIDIA_VERSION} nvidia-settings libcuda1-${NVIDIA_VERSION} nvidia-opencl-icd-${NVIDIA_VERSION}
     if [ -d "/usr/local/cuda" ]; then
       sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
