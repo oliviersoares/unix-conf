@@ -124,6 +124,6 @@ alias encrypt='gpg --no-verbose -q --yes --compress-algo 1 --cipher-algo AES256 
 alias decrypt='gpg --no-verbose -q --yes'
 
 # TensorFlow environment (docker and virtualenv)
-alias vtf2='. ${HOME}/.venv/python2/tf/bin/activate'
-alias vtf3='. ${HOME}/.venv/python3/tf/bin/activate'
-alias vtf='vtf3'
+alias vpy2='. ${HOME}/.venv/python2/bin/activate'
+alias vpy3='. ${HOME}/.venv/python3/bin/activate'
+alias vpy='vpy3'

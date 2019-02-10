@@ -10,17 +10,19 @@ echo -e "\n\n\n--- Starting setup_py.sh ---\n\n\n"
 echo -e "\n\n\nInstalling python environment\n\n\n"
 
 # Create virtual environment
-pip3 install --upgrade pip
-pip3 install --upgrade virtualenv
-rm -rf ~/.venv/python3/tf
-mkdir -p ~/.venv/python3/tf
-virtualenv --system-site-packages -p python3 ~/.venv/python3/tf
-. ~/.venv/python3/tf/bin/activate
+if ! hash virtualenv 2>/dev/null; then
+  pip3 install --upgrade virtualenv
+fi
+rm -rf ~/.venv/python3
+mkdir -p ~/.venv/python3
+virtualenv --system-site-packages -p python3 ~/.venv/python3
+. ~/.venv/python3/bin/activate
 
 # Install packages
 pip install --upgrade pip
 pip install --upgrade wheel
 pip install --upgrade setuptools
+pip install --upgrade future
 pip install --upgrade Cython
 pip install --upgrade pylint
 pip install --upgrade six
@@ -50,6 +52,9 @@ echo -e "\n\n\n--- Installing Keras ---\n\n\n"
 pip install --upgrade keras
 echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
 pip install --upgrade coremltools
+echo -e "\n\n\n--- Installing PyTorch ---\n\n\n"
+pip install --upgrade torchvision_nightly
+pip install --upgrade torch_nightly -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
 
 # Finish
 deactivate
