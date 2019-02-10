@@ -81,12 +81,14 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=384
+    NVIDIA_VERSION=410
     CUDA_PKG=cuda_10.0.130_410.48_linux.run
     CUDNN_PKG=cudnn-10.0-linux-x64-v7.4.2.24.tgz
     TMPDIR_1=$(mktemp -d)
     TMPDIR_2=$(mktemp -d)
-    sudo apt-get -y --no-install-recommends install nvidia-${NVIDIA_VERSION} nvidia-settings libcuda1-${NVIDIA_VERSION} nvidia-opencl-icd-${NVIDIA_VERSION}
+    sudo add-apt-repository -y ppa:graphics-drivers/ppa
+    sudo apt-get -y update
+    sudo apt-get -y install nvidia-driver-${NVIDIA_VERSION}
     if [ -d "/usr/local/cuda" ]; then
       sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
     fi
