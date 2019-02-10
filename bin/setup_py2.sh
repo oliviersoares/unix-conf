@@ -41,11 +41,10 @@ pip install --upgrade protobuf
 pip install --upgrade sklearn
 pip install --upgrade librosa
 pip install --upgrade imgaug
+echo -e "\n\n\n--- Installing TensorFlow ---\n\n\n"
 if [ -d "/usr/local/cuda" ]; then
-  echo -e "\n\n\n--- Installing TensorFlow GPU ---\n\n\n"
   pip install --upgrade tensorflow-gpu
 else
-  echo -e "\n\n\n--- Installing TensorFlow CPU ---\n\n\n"
   pip install --upgrade tensorflow
 fi
 echo -e "\n\n\n--- Installing Keras ---\n\n\n"
@@ -54,7 +53,11 @@ echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
 pip install --upgrade coremltools
 echo -e "\n\n\n--- Installing PyTorch ---\n\n\n"
 pip install --upgrade torchvision_nightly
-pip install --upgrade torch_nightly -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
+if [ -d "/usr/local/cuda" ]; then
+  pip install --upgrade torch_nightly -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
+else
+  pip install --upgrade torch_nightly -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
+fi
 
 # Finish
 deactivate
