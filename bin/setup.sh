@@ -81,25 +81,25 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=384
-    CUDA_PKG_1=cuda_9.0.176_384.81_linux.run
-    CUDA_PKG_2=cuda_9.0.176.1_linux.run
-    CUDNN_PKG=cudnn-9.0-linux-x64-v7.3.1.20.tgz
-    TMPDIR=$(mktemp -d)
+    NVIDIA_VERSION=390
+    CUDA_PKG=cuda_10.0.130_410.48_linux.run
+    CUDNN_PKG=cudnn-10.0-linux-x64-v7.4.2.24.tgz
+    TMPDIR_1=$(mktemp -d)
+    TMPDIR_2=$(mktemp -d)
     sudo apt-get -y --no-install-recommends install nvidia-${NVIDIA_VERSION} nvidia-settings libcuda1-${NVIDIA_VERSION} nvidia-opencl-icd-${NVIDIA_VERSION}
     if [ -d "/usr/local/cuda" ]; then
       sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
     fi
     sudo rm -rf /usr/local/cuda*
-    git clone https://github.com/oliviersoares/nvidia ${TMPDIR}
-    cat ${TMPDIR}/${CUDA_PKG_1}* > ${TMPDIR}/${CUDA_PKG_1}
-    cat ${TMPDIR}/${CUDA_PKG_2}* > ${TMPDIR}/${CUDA_PKG_2}
-    cat ${TMPDIR}/${CUDNN_PKG}*  > ${TMPDIR}/${CUDNN_PKG}
-    sudo sh ${TMPDIR}/${CUDA_PKG_1} --silent --toolkit
-    sudo sh ${TMPDIR}/${CUDA_PKG_2} --silent --accept-eula
-    sudo tar xvzf ${TMPDIR}/${CUDNN_PKG} -C /usr/local
+    git clone https://github.com/oliviersoares/nvidia ${TMPDIR_1}
+    git clone https://github.com/oliviersoares/nvidia_extra ${TMPDIR_2}
+    cat ${TMPDIR_1}/${CUDA_PKG}* > ${TMPDIR_1}/${CUDA_PKG}
+    cat ${TMPDIR_2}/${CUDNN_PKG}*  > ${TMPDIR_2}/${CUDNN_PKG}
+    sudo sh ${TMPDIR_1}/${CUDA_PKG} --silent --toolkit
+    sudo tar xvzf ${TMPDIR_2}/${CUDNN_PKG} -C /usr/local
     find /usr/local/cuda/ -exec sudo chown -h root:root {} \;
-    rm -rf ${TMPDIR}
+    rm -rf ${TMPDIR_1}
+    rm -rf ${TMPDIR_2}
     pushd /usr/lib/x86_64-linux-gnu/
     sudo rm -f libGL.so
     sudo ln -s ../nvidia-${NVIDIA_VERSION}/libGL.so
