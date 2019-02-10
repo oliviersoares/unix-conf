@@ -149,7 +149,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew install gmic optipng pngquant ghostscript exiftool
 
   # Coding tools
-  brew install cmake git mercurial valgrind doxygen
+  brew install llvm libomp cmake git mercurial valgrind doxygen
 
   # Dev libraries
   brew install jpeg libpng libtiff openexr hdf5
