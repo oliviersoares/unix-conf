@@ -13,10 +13,10 @@ echo -e "\n\n\nInstalling python environment\n\n\n"
 if ! hash virtualenv 2>/dev/null; then
   pip2 install --upgrade virtualenv
 fi
-rm -rf ~/.venv/python2
-mkdir -p ~/.venv/python2
-virtualenv --system-site-packages -p python2 ~/.venv/python2
-. ~/.venv/python2/bin/activate
+rm -rf ~/.venv/python2/vpy
+mkdir -p ~/.venv/python2/vpy
+virtualenv --system-site-packages -p python2 ~/.venv/python2/vpy
+. ~/.venv/python2/vpy/bin/activate
 
 # Install packages
 pip install --upgrade pip
