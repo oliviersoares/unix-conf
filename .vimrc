@@ -106,9 +106,9 @@ set tm=500
 " Add left margin
 set foldcolumn=1
 
-" Display a vertical line at 80 chars
+" Display a vertical line at 79 chars
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=79
 endif
 
 " Always show the status line
