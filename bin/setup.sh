@@ -144,9 +144,8 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg gnupg offlineimap
-  brew cask install iterm2 meld vlc gimp
-  brew install imagemagick
-  brew install gmic optipng pngquant ghostscript exiftool
+  brew cask install iterm2 meld vlc gimp adguard
+  brew install imagemagick gmic optipng pngquant ghostscript exiftool
 
   # Coding tools
   brew install llvm libomp cmake git mercurial valgrind doxygen
