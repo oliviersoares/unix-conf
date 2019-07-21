@@ -170,6 +170,10 @@ elif [ "$(uname)" == "Darwin" ]; then
   # Latex
   brew cask install basictex
 
+  # Fuse
+  brew cask install osxfuse
+  brew install sshfs
+
   # Find pip (Python 2)
   if hash pip2 2>/dev/null; then
     PIP2=pip2
