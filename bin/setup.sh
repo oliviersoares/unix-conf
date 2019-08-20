@@ -41,12 +41,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install vim nedit geany
 
   # Visual Studio Code
-  curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /tmp/microsoft.gpg
-  sudo install -o root -g root -m 644 /tmp/microsoft.gpg /etc/apt/trusted.gpg.d/
-  sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-  sudo apt-get -y --no-install-recommends install apt-transport-https
-  sudo apt-get update
-  sudo apt-get -y --no-install-recommends install code
+  sudo snap install --classic code
 
   # Tools
   sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick gmic optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
