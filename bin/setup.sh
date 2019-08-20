@@ -47,7 +47,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick gmic optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
 
   # Internet
-  sudo apt-get -y --no-install-recommends install firefox chromium-browser torbrowser-launcher
+  sudo apt-get -y --no-install-recommends install firefox thunderbird chromium-browser torbrowser-launcher
 
   # OpenSSH
   sudo apt-get -y --no-install-recommends install openssh-client openssh-server
