@@ -84,9 +84,9 @@ if [ "$(uname)" == "Linux" ]; then
     echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
   else
     echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=410
-    CUDA_PKG=cuda_10.0.130_410.48_linux.run
-    CUDNN_PKG=cudnn-10.0-linux-x64-v7.4.2.24.tgz
+    NVIDIA_VERSION=418
+    CUDA_PKG=cuda_10.1.243_418.87.00_linux.run
+    CUDNN_PKG=cudnn-10.1-linux-x64-v7.6.5.32.tgz
     TMPDIR_1=$(mktemp -d)
     TMPDIR_2=$(mktemp -d)
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
@@ -96,10 +96,9 @@ if [ "$(uname)" == "Linux" ]; then
       sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
     fi
     sudo rm -rf /usr/local/cuda*
-    git clone https://github.com/oliviersoares/nvidia ${TMPDIR_1}
-    git clone https://github.com/oliviersoares/nvidia_extra ${TMPDIR_2}
-    cat ${TMPDIR_1}/${CUDA_PKG}* > ${TMPDIR_1}/${CUDA_PKG}
-    cat ${TMPDIR_2}/${CUDNN_PKG}*  > ${TMPDIR_2}/${CUDNN_PKG}
+    wget -O ${TMPDIR_1}/${CUDA_PKG} http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/${CUDA_PKG}
+    git clone https://github.com/oliviersoares/nvidia ${TMPDIR_2}
+    cat ${TMPDIR_2}/${CUDNN_PKG}* > ${TMPDIR_2}/${CUDNN_PKG}
     sudo sh ${TMPDIR_1}/${CUDA_PKG} --silent --toolkit
     sudo tar xvzf ${TMPDIR_2}/${CUDNN_PKG} -C /usr/local
     find /usr/local/cuda/ -exec sudo chown -h root:root {} \;

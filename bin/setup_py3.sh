@@ -9,6 +9,10 @@ fi
 echo -e "\n\n\n--- Starting setup_py.sh ---\n\n\n"
 echo -e "\n\n\nInstalling python environment\n\n\n"
 
+# Upgrade pip
+pip3 install --upgrade pip
+hash -d pip3
+
 # Create virtual environment
 if ! hash virtualenv 2>/dev/null; then
   pip3 install --upgrade virtualenv
@@ -20,6 +24,7 @@ virtualenv --system-site-packages -p python3 ~/.venv/python3/vpy
 
 # Install packages
 pip install --upgrade pip
+hash -d pip
 pip install --upgrade wheel
 pip install --upgrade setuptools
 pip install --upgrade future
@@ -41,22 +46,16 @@ pip install --upgrade protobuf
 pip install --upgrade sklearn
 pip install --upgrade librosa
 pip install --upgrade imgaug
+echo -e "\n\n\n--- Installing TensorFlow ---\n\n\n"
 if [ -d "/usr/local/cuda" ]; then
-  pip install --upgrade tensorflow-gpu
+  pip install --upgrade tensorflow-gpu==2.1.0rc1
 else
-  pip install --upgrade tensorflow
+  pip install --upgrade tensorflow==2.1.0rc1
 fi
-echo -e "\n\n\n--- Installing Keras ---\n\n\n"
-pip install --upgrade keras
 echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
 pip install --upgrade coremltools
 echo -e "\n\n\n--- Installing PyTorch ---\n\n\n"
-pip install --upgrade torchvision_nightly
-if [ -d "/usr/local/cuda" ]; then
-  pip install --upgrade torch_nightly -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
-else
-  pip install --upgrade torch_nightly -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
-fi
+pip install --upgrade torchvision
 
 # Finish
 deactivate
