@@ -50,3 +50,8 @@ done
 for file in *.eic; do
   mv "$file" "$(basename "$file" .eic).heic"
 done
+
+# Fix .jpeg file extension
+for file in *.peg; do
+  mv "$file" "$(basename "$file" .peg).jpeg"
+done
