@@ -76,6 +76,14 @@ if [ "$(uname)" == "Linux" ]; then
   # Gimp
   sudo apt-get -y --no-install-recommends install gimp
 
+  # Docker
+  sudo apt-get -y --no-install-recommends install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  sudo apt-get update
+  sudo apt-get -y --no-install-recommends install docker-ce docker-ce-cli containerd.io
+  sudo usermod -aG docker `whoami`
+
   # Check if we have a NVIDIA graphics card
   # The command below returns the number of NVIDIA graphics card found
   sudo apt-get -y --no-install-recommends install pciutils
@@ -167,6 +175,9 @@ elif [ "$(uname)" == "Darwin" ]; then
   # Fuse
   brew cask install osxfuse
   brew install sshfs
+
+  # Docker
+  brew cask install docker
 
   # Find pip (Python 2)
   if hash pip2 2>/dev/null; then
