@@ -123,6 +123,9 @@ fi
 alias encrypt='gpg --no-verbose -q --yes --compress-algo 1 --cipher-algo AES256 -c'
 alias decrypt='gpg --no-verbose -q --yes'
 
+# List branches with date of last commit
+alias gitblist='for branch in `git branch -r | grep -v HEAD`;do echo -e `git show --format="%ci %cr" $branch | head -n 1` \\t$branch; done | sort -r'
+
 # TensorFlow environment (docker and virtualenv)
 alias vpy2='. ${HOME}/.venv/python2/vpy/bin/activate'
 alias vpy3='. ${HOME}/.venv/python3/vpy/bin/activate'
