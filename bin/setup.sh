@@ -112,10 +112,11 @@ if [ "$(uname)" == "Linux" ]; then
     find /usr/local/cuda/ -exec sudo chown -h root:root {} \;
     rm -rf ${TMPDIR_1}
     rm -rf ${TMPDIR_2}
-    pushd /usr/lib/x86_64-linux-gnu/
-    sudo rm -f libGL.so
-    sudo ln -s ../nvidia-${NVIDIA_VERSION}/libGL.so
-    popd
+    # Not needed anymore with latest drivers
+    #pushd /usr/lib/x86_64-linux-gnu/
+    #sudo rm -f libGL.so
+    #sudo ln -s ../nvidia-${NVIDIA_VERSION}/libGL.so
+    #popd
     nvidia-smi
   fi
 
