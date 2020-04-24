@@ -20,10 +20,13 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y update
   sudo apt-get -y upgrade
 
+  # Snap
+  sudo apt-get -y --no-install-recommends install snapd
+
   # Remove amazon crap and flash plugin
   sudo apt-get -y remove --purge unity-webapps-common flashplugin-installer
 
-  # Disable Ubuntu apport
+  # Disable apport
   service apport stop
   sed -i -e s/^enabled\=1$/enabled\=0/ /etc/default/apport
   sudo apt-get -y remove --purge apport
@@ -76,12 +79,12 @@ if [ "$(uname)" == "Linux" ]; then
   # Gimp
   sudo apt-get -y --no-install-recommends install gimp
 
+  # Calibre
+  sudo apt-get -y --no-install-recommends calibre
+
   # Docker
-  sudo apt-get -y --no-install-recommends install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  sudo apt-get update
-  sudo apt-get -y --no-install-recommends install docker-ce docker-ce-cli containerd.io
+  sudo snap install docker
+  sudo groupadd docker
   sudo usermod -aG docker `whoami`
 
   # Check if we have a NVIDIA graphics card
@@ -155,7 +158,7 @@ elif [ "$(uname)" == "Darwin" ]; then
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg gnupg offlineimap
-  brew cask install iterm2 meld vlc gimp
+  brew cask install iterm2 meld vlc gimp calibre
   brew install imagemagick gmic optipng pngquant ghostscript exiftool
 
   # Coding tools

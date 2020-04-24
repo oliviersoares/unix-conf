@@ -71,6 +71,11 @@ if [ -d "${HOME}/lib" ]; then
   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/lib
 fi
 
+# Snap
+if [ -d "/snap/bin" ]; then
+  export PATH=${PATH}:/snap/bin
+fi
+
 # Python startup script
 export PYTHONSTARTUP=${HOME}/.pythonrc
 
