@@ -80,7 +80,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install gimp
 
   # Calibre
-  sudo apt-get -y --no-install-recommends calibre
+  sudo apt-get -y --no-install-recommends install calibre
 
   # Docker
   sudo snap install docker
