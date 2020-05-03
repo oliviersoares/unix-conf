@@ -20,16 +20,13 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y update
   sudo apt-get -y upgrade
 
-  # Snap
-  sudo apt-get -y --no-install-recommends install snapd
-
-  # Remove amazon crap and flash plugin
-  sudo apt-get -y remove --purge unity-webapps-common flashplugin-installer
-
-  # Disable apport
+  # Remove apport
   service apport stop
   sed -i -e s/^enabled\=1$/enabled\=0/ /etc/default/apport
   sudo apt-get -y remove --purge apport
+
+  # Snap
+  sudo apt-get -y --no-install-recommends install snapd
 
   # Set locales
   echo -e "\n\n\n--- Setting locales ---\n\n\n"
@@ -87,40 +84,38 @@ if [ "$(uname)" == "Linux" ]; then
   sudo groupadd docker
   sudo usermod -aG docker `whoami`
 
-  # Check if we have a NVIDIA graphics card
-  # The command below returns the number of NVIDIA graphics card found
-  sudo apt-get -y --no-install-recommends install pciutils
-  NVIDIA_DETECTED=`lspci | grep "VGA compatible controller\|3D controller" | grep "NVIDIA\|GeForce" | wc -l`
-  if [ ${NVIDIA_DETECTED} == '0' ]; then
-    echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
-  else
-    echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
-    NVIDIA_VERSION=418
-    CUDA_PKG=cuda_10.1.243_418.87.00_linux.run
-    CUDNN_PKG=cudnn-10.1-linux-x64-v7.6.5.32.tgz
-    TMPDIR_1=$(mktemp -d)
-    TMPDIR_2=$(mktemp -d)
-    sudo add-apt-repository -y ppa:graphics-drivers/ppa
-    sudo apt-get -y update
-    sudo apt-get -y install nvidia-driver-${NVIDIA_VERSION}
-    if [ -d "/usr/local/cuda" ]; then
-      sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
+  # NVIDIA drivers
+  INSTALL_NVIDIA_DRIVERS=0
+  if [ ${INSTALL_NVIDIA_DRIVERS} == 1 ]; then
+    # Check if we have a NVIDIA graphics card
+    # The command below returns the number of NVIDIA graphics card found
+    sudo apt-get -y --no-install-recommends install pciutils
+    NVIDIA_DETECTED=`lspci | grep "VGA compatible controller\|3D controller" | grep "NVIDIA\|GeForce" | wc -l`
+    if [ ${NVIDIA_DETECTED} == '0' ]; then
+      echo -e "\n\n\n--- No NVIDIA graphics card found ---\n\n\n"
+    else
+      echo -e "\n\n\n--- ${NVIDIA_DETECTED} NVIDIA graphics card(s) found: installing drivers, CUDA and cuDNN ---\n\n\n"
+      CUDA_PKG=cuda_10.1.243_418.87.00_linux.run
+      CUDNN_PKG=cudnn-10.1-linux-x64-v7.6.5.32.tgz
+      TMPDIR_1=$(mktemp -d)
+      TMPDIR_2=$(mktemp -d)
+      sudo add-apt-repository -y ppa:graphics-drivers/ppa
+      sudo apt-get -y update
+      sudo apt-get -y install nvidia-driver
+      if [ -d "/usr/local/cuda" ]; then
+        sudo /usr/local/cuda/bin/uninstall_cuda_*.pl --silent
+      fi
+      sudo rm -rf /usr/local/cuda*
+      wget -O ${TMPDIR_1}/${CUDA_PKG} http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/${CUDA_PKG}
+      git clone https://github.com/oliviersoares/nvidia ${TMPDIR_2}
+      cat ${TMPDIR_2}/${CUDNN_PKG}* > ${TMPDIR_2}/${CUDNN_PKG}
+      sudo sh ${TMPDIR_1}/${CUDA_PKG} --silent --toolkit
+      sudo tar xvzf ${TMPDIR_2}/${CUDNN_PKG} -C /usr/local
+      find /usr/local/cuda/ -exec sudo chown -h root:root {} \;
+      rm -rf ${TMPDIR_1}
+      rm -rf ${TMPDIR_2}
+      nvidia-smi
     fi
-    sudo rm -rf /usr/local/cuda*
-    wget -O ${TMPDIR_1}/${CUDA_PKG} http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/${CUDA_PKG}
-    git clone https://github.com/oliviersoares/nvidia ${TMPDIR_2}
-    cat ${TMPDIR_2}/${CUDNN_PKG}* > ${TMPDIR_2}/${CUDNN_PKG}
-    sudo sh ${TMPDIR_1}/${CUDA_PKG} --silent --toolkit
-    sudo tar xvzf ${TMPDIR_2}/${CUDNN_PKG} -C /usr/local
-    find /usr/local/cuda/ -exec sudo chown -h root:root {} \;
-    rm -rf ${TMPDIR_1}
-    rm -rf ${TMPDIR_2}
-    # Not needed anymore with latest drivers
-    #pushd /usr/lib/x86_64-linux-gnu/
-    #sudo rm -f libGL.so
-    #sudo ln -s ../nvidia-${NVIDIA_VERSION}/libGL.so
-    #popd
-    nvidia-smi
   fi
 
   # Clean
