@@ -25,9 +25,6 @@ if [ "$(uname)" == "Linux" ]; then
   sed -i -e s/^enabled\=1$/enabled\=0/ /etc/default/apport
   sudo apt-get -y remove --purge apport
 
-  # Snap
-  sudo apt-get -y --no-install-recommends install snapd
-
   # Set locales
   echo -e "\n\n\n--- Setting locales ---\n\n\n"
   sudo apt-get -y --no-install-recommends install locales
@@ -50,7 +47,7 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install codium
 
   # Internet
-  sudo apt-get -y --no-install-recommends install firefox thunderbird chromium torbrowser-launcher
+  sudo apt-get -y --no-install-recommends install firefox thunderbird torbrowser-launcher
 
   # OpenSSH
   sudo apt-get -y --no-install-recommends install openssh-client openssh-server
@@ -83,7 +80,10 @@ if [ "$(uname)" == "Linux" ]; then
   sudo apt-get -y --no-install-recommends install calibre
 
   # Docker
-  sudo snap install docker
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(. /etc/os-release; echo \"$UBUNTU_CODENAME\") stable"
+  sudo apt update
+  sudo apt-get -y --no-install-recommends install docker-ce docker-ce-cli containerd.io
   sudo groupadd docker
   sudo usermod -aG docker `whoami`
 
@@ -147,17 +147,17 @@ elif [ "$(uname)" == "Darwin" ]; then
   # Xquartz (for X11)
   brew cask install xquartz
 
-  # Internet
-  brew cask install firefox chromium tor-browser
-
-  # Editors
-  brew install vim nedit
-  brew cask install geany vscodium
-
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg gnupg offlineimap
   brew cask install iterm2 meld vlc gimp calibre
   brew install imagemagick gmic optipng pngquant ghostscript exiftool
+
+  # Internet
+  brew cask install firefox tor-browser
+
+  # Editors
+  brew install vim nedit
+  brew cask install geany vscodium
 
   # Coding tools
   brew install llvm libomp cmake git mercurial valgrind doxygen
@@ -181,24 +181,11 @@ elif [ "$(uname)" == "Darwin" ]; then
   # Docker
   brew cask install docker
 
-  # Find pip (Python 2)
-  if hash pip2 2>/dev/null; then
-    PIP2=pip2
-  elif hash pip 2>/dev/null; then
-    PIP2=pip
-  else
-    echo -e "Could not find pip command"
-    echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python-pip"
-    echo -e "Install it on macOS via HomeBrew with command: brew install python"
-    exit 1
-  fi
-
-  # Virtualenv (via pip)
-  ${PIP2} install --upgrade virtualenv
-
   # Find pip
   if hash pip3 2>/dev/null; then
-    PIP3=pip3
+    PIP=pip3
+  elif hash pip 2>/dev/null; then
+    PIP=pip
   else
     echo -e "Could not find pip command"
     echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3-pip"
@@ -207,7 +194,7 @@ elif [ "$(uname)" == "Darwin" ]; then
   fi
 
   # Virtualenv (via pip)
-  ${PIP3} install --upgrade virtualenv
+  ${PIP} install --upgrade virtualenv
 fi
 
 echo -e "\n\n\nDone with setup.sh\n\n\n"
