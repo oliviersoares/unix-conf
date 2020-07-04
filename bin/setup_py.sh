@@ -48,9 +48,9 @@ pip install --upgrade librosa
 pip install --upgrade imgaug
 echo -e "\n\n\n--- Installing TensorFlow ---\n\n\n"
 if [ -d "/usr/local/cuda" ]; then
-  pip install --upgrade tensorflow-gpu==2.1.0rc1
+  pip install --upgrade tensorflow-gpu==2.2
 else
-  pip install --upgrade tensorflow==2.1.0rc1
+  pip install --upgrade tensorflow==2.2
 fi
 echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
 pip install --upgrade coremltools

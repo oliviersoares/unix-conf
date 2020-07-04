@@ -37,14 +37,17 @@ if [ "$(uname)" == "Linux" ]; then
   # Installing packages
   echo -e "\n\n\n--- Installing packages ---\n\n\n"
 
+  # Tools
+  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick gmic optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
+
   # Text editors
   sudo apt-get -y --no-install-recommends install vim nedit geany
 
   # Visual Studio Code
-  sudo snap install --classic code
-
-  # Tools
-  sudo apt-get -y --no-install-recommends install curl wget colordiff htop meld ncftp imagemagick gmic optipng pngquant libimage-exiftool-perl tmux dos2unix cifs-utils offlineimap gparted exfat-fuse exfat-utils
+  wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | sudo apt-key add -
+  echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' | sudo tee --append /etc/apt/sources.list.d/vscodium.list
+  sudo apt update
+  sudo apt-get -y --no-install-recommends install codium
 
   # Internet
   sudo apt-get -y --no-install-recommends install firefox thunderbird chromium-browser torbrowser-launcher
@@ -146,11 +149,11 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install xquartz
 
   # Internet
-  brew cask install firefox google-chrome tor-browser
+  brew cask install firefox chromium tor-browser
 
   # Editors
   brew install vim nedit
-  brew cask install geany visual-studio-code
+  brew cask install geany vscodium
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg gnupg offlineimap
