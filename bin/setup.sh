@@ -61,9 +61,6 @@ if [ "$(uname)" == "Linux" ]; then
   # Dev libraries
   sudo apt-get -y --no-install-recommends install libgl1-mesa-dev mesa-common-dev libjpeg-dev libpng-dev libtiff5-dev libopenexr-dev libcurl4-openssl-dev libhdf5-dev
 
-  # Python 2
-  sudo apt-get -y --no-install-recommends install python python-dev virtualenv python-pip python-virtualenv python-setuptools ipython python-notebook
-
   # Python 3
   sudo apt-get -y --no-install-recommends install python3 python3-dev python3-pip python3-virtualenv python3-setuptools ipython3 python3-notebook
 
@@ -182,10 +179,10 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew cask install docker
 
   # Find pip
-  if hash pip3 2>/dev/null; then
+  if hash /usr/bin/pip3 2>/dev/null; then
+    PIP=/usr/bin/pip3
+  elif hash pip3 2>/dev/null; then
     PIP=pip3
-  elif hash pip 2>/dev/null; then
-    PIP=pip
   else
     echo -e "Could not find pip command"
     echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3-pip"

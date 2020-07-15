@@ -9,53 +9,77 @@ fi
 echo -e "\n\n\n--- Starting setup_py.sh ---\n\n\n"
 echo -e "\n\n\nInstalling python environment\n\n\n"
 
+# Check we have python
+if hash /usr/bin/python3 2>/dev/null; then
+  PYTHON=/usr/bin/python3
+elif hash python3 2>/dev/null; then
+  PYTHON=python3
+else
+  echo -e "Could not find python command"
+  echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3"
+  echo -e "Install it on macOS via HomeBrew with command: brew install python"
+  exit 1
+fi
+
+# Check we have pip
+if hash /usr/bin/pip3 2>/dev/null; then
+  PIP=/usr/bin/pip3
+elif hash pip3 2>/dev/null; then
+  PIP=pip3
+else
+  echo -e "Could not find pip command"
+  echo -e "Install it on Debian-based Linux with command: sudo apt-get -y --no-install-recommends install python3-pip"
+  echo -e "Install it on macOS via HomeBrew with command: brew install python"
+  exit 1
+fi
+
 # Upgrade pip
-pip3 install --upgrade pip
-hash -d pip3
+${PIP} install --upgrade pip
+hash -d ${PIP}
 
 # Create virtual environment
 if ! hash virtualenv 2>/dev/null; then
-  pip3 install --upgrade virtualenv
+  ${PIP} install --upgrade virtualenv
 fi
 rm -rf ~/.venv/python3/vpy
 mkdir -p ~/.venv/python3/vpy
-virtualenv --system-site-packages -p python3 ~/.venv/python3/vpy
+virtualenv --system-site-packages -p ${PYTHON} ~/.venv/python3/vpy
 . ~/.venv/python3/vpy/bin/activate
 
 # Install packages
-pip install --upgrade pip
-hash -d pip
-pip install --upgrade wheel
-pip install --upgrade setuptools
-pip install --upgrade future
-pip install --upgrade Cython
-pip install --upgrade pylint
-pip install --upgrade six
-pip install --upgrade numpy
-pip install --upgrade scipy
-pip install --upgrade pandas
-pip install --upgrade tables
-pip install --upgrade dlib
-pip install --upgrade Pillow
-pip install --upgrade OpenEXR
-pip install --upgrade matplotlib
-pip install --upgrade opencv-python
-pip install --upgrade boto3
-pip install --upgrade h5py
-pip install --upgrade protobuf
-pip install --upgrade sklearn
-pip install --upgrade librosa
-pip install --upgrade imgaug
+${PIP} install --upgrade pip
+hash -d ${PIP}
+${PIP} install --upgrade wheel
+${PIP} install --upgrade setuptools
+${PIP} install --upgrade future
+${PIP} install --upgrade Cython
+${PIP} install --upgrade pylint
+${PIP} install --upgrade six
+${PIP} install --upgrade numpy
+${PIP} install --upgrade scipy
+${PIP} install --upgrade pandas
+${PIP} install --upgrade tables
+${PIP} install --upgrade dlib
+${PIP} install --upgrade Pillow
+${PIP} install --upgrade OpenEXR
+${PIP} install --upgrade matplotlib
+${PIP} install --upgrade opencv-python
+${PIP} install --upgrade boto3
+${PIP} install --upgrade h5py
+${PIP} install --upgrade protobuf
+${PIP} install --upgrade sklearn
+${PIP} install --upgrade librosa
+${PIP} install --upgrade imgaug
 echo -e "\n\n\n--- Installing TensorFlow ---\n\n\n"
 if [ -d "/usr/local/cuda" ]; then
-  pip install --upgrade tensorflow-gpu==2.2
+  ${PIP} install --upgrade tensorflow-gpu
 else
-  pip install --upgrade tensorflow==2.2
+  ${PIP} install --upgrade tensorflow
 fi
 echo -e "\n\n\n--- Installing CoreML ---\n\n\n"
-pip install --upgrade coremltools
+${PIP} install --upgrade coremltools
 echo -e "\n\n\n--- Installing PyTorch ---\n\n\n"
-pip install --upgrade torchvision
+${PIP} install --upgrade torchvision
 
 # Finish
 deactivate
