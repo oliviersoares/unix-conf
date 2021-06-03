@@ -142,19 +142,19 @@ elif [ "$(uname)" == "Darwin" ]; then
   echo -e "\n\n\n--- Installing packages ---\n\n\n"
 
   # Xquartz (for X11)
-  brew cask install xquartz
+  brew install xquartz
 
   # Tools
   brew install coreutils findutils curl wget htop nmap tmux ncftp ffmpeg gnupg offlineimap
-  brew cask install iterm2 meld vlc gimp calibre
+  brew install iterm2 meld vlc gimp calibre
   brew install imagemagick gmic optipng pngquant ghostscript exiftool
 
   # Internet
-  brew cask install firefox tor-browser
+  brew install firefox tor-browser
 
   # Editors
   brew install vim nedit
-  brew cask install geany vscodium
+  brew install geany vscodium
 
   # Coding tools
   brew install llvm libomp cmake git mercurial valgrind doxygen
@@ -169,14 +169,14 @@ elif [ "$(uname)" == "Darwin" ]; then
   brew install awscli
 
   # Latex
-  brew cask install basictex
+  brew install basictex
 
   # Fuse
-  brew cask install osxfuse
+  brew install osxfuse
   brew install sshfs
 
   # Docker
-  brew cask install docker
+  brew install docker
 
   # Find pip
   if hash /usr/bin/pip3 2>/dev/null; then
